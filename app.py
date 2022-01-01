@@ -8,18 +8,54 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from fsm import TocMachine
-from utils import send_text_message
+from utils import send_text_message,push_button_message
 
 load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2", "state3"],
+    states=["user", "goHome","thing",
+            "eating","breakfast", "lunch","dinner","nightsnack","exitEating",
+            "life","thing","goHome","entertainment","exitLife",
+            "cost","buying","allowance","parttime","exitCost",
+            "school","homework","test","school_life","exitSchool"
+            ],
+    #如果condition return true=>goto dest
     transitions=[
-        {"trigger": "advance","source": "user","dest": "state1","conditions": "is_going_to_state1",},
-        {"trigger": "advance","source": "user","dest": "state2","conditions": "is_going_to_state2",},
-        {"trigger": "advance","source": "user","dest": "state3","conditions": "is_going_to_state3",},
-        {"trigger": "go_back", "source": ["state1", "state2", "state3"], "dest": "user"},
+        {"trigger": "advance","source": "user","dest": "eating","conditions": "is_going_to_eating",},
+        {"trigger": "advance","source": "eating","dest": "breakfast","conditions": "is_going_to_breakfast",},
+        {"trigger": "advance","source": "eating","dest": "lunch","conditions": "is_going_to_lunch",},
+        {"trigger": "advance","source": "eating","dest": "dinner","conditions": "is_going_to_dinner",},
+        {"trigger": "advance","source": "eating","dest": "nightsnack","conditions": "is_going_to_nightsnack",},
+        {"trigger": "advance","source": "eating","dest": "exitEating","conditions": "is_going_to_exitEating",},
+        #======================================================================================================
+        {"trigger": "advance","source": "user","dest": "life","conditions": "is_going_to_life",},
+        {"trigger": "advance","source": "life","dest": "thing","conditions": "is_going_to_thing",},
+        {"trigger": "advance","source": "life","dest": "goHome","conditions": "is_going_to_goHome",},
+        {"trigger": "advance","source": "life","dest": "entertainment","conditions": "is_going_to_entertainment",},
+        {"trigger": "advance","source": "life","dest": "exitLife","conditions": "is_going_to_exitLife",},
+        #======================================================================================================
+        {"trigger": "advance","source": "user","dest": "cost","conditions": "is_going_to_cost",},
+        {"trigger": "advance","source": "cost","dest": "buying","conditions": "is_going_to_buying",},
+        {"trigger": "advance","source": "cost","dest": "allowance","conditions": "is_going_to_allowance",},
+        {"trigger": "advance","source": "cost","dest": "parttime","conditions": "is_going_to_parttime",},
+        {"trigger": "advance","source": "cost","dest": "exitCost","conditions": "is_going_to_exitCost",},
+        #################################################################################################
+        {"trigger": "advance","source": "user","dest": "school","conditions": "is_going_to_school",},
+        {"trigger": "advance","source": "school","dest": "homework","conditions": "is_going_to_homework",},
+        {"trigger": "advance","source": "school","dest": "test","conditions": "is_going_to_test",},
+        {"trigger": "advance","source": "school","dest": "school_life","conditions": "is_going_to_school_life",},
+        {"trigger": "advance","source": "school","dest": "exitSchool","conditions": "is_going_to_exitSchool",},
+        #################################################################################################
+        {"trigger": "go_back", "source": ["goHome","thing",
+            "eating","breakfast", "lunch","dinner","nightsnack","exitEating",
+            "life","thing","goHome","entertainment","exitLife",
+            "cost","buying","allowance","parttime","exitCost",
+            "school","homework","test","school_life","exitSchool"], "dest": "user"},
+        {"trigger": "go_back_eating", "source": ["breakfast","lunch","dinner","nightsnack"], "dest": "eating"},
+        {"trigger": "go_back_life", "source": ["thing","goHome","entertainment"], "dest": "life"},
+        {"trigger": "go_back_cost", "source": ["buying","allowance","parttime"], "dest": "cost"},
+        {"trigger": "go_back_school", "source": ["homework","test","school_life"], "dest": "school"},
     ],
     initial="user",
     auto_transitions=False,
@@ -41,6 +77,7 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
+
 
 
 @app.route("/callback", methods=["POST"])
@@ -66,6 +103,7 @@ def callback():
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.message.text)
         )
+        
 
     return "OK"
 
@@ -93,9 +131,11 @@ def webhook_handler():
             continue
         print(f"\nFSM STATE: {machine.state}")
         print(f"REQUEST BODY: \n{body}")
-        response = machine.advance(event)
+        response = machine.advance(event)   #每次while便會呼叫advance()
         if response == False:
-            send_text_message(event.reply_token, "Not Entering any State")
+            send_text_message(event.reply_token, "輸入錯誤，請重新輸入")
+            #machine.go_back()
+
 
     return "OK"
 
