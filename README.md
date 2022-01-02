@@ -213,7 +213,7 @@ Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
 
 
 ## FSM
-![](https://i.imgur.com/GMrkfDT.png)
+![](https://github.com/LinChiaEn/Line-bot/blob/master/fsm.png)
 ### state說明
 - user: 點選按鈕進入主題
 - eating: 詢問(1)早餐吃什麼?(2)午餐吃什麼?(3)晚餐吃什麼?(4)最近吃什麼消夜嗎(5)返回
