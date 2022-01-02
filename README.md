@@ -183,35 +183,15 @@ Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
     4. 輸入返回數字代號
 
 ## 使用示範
-### 輸入個人資訊
-![](https://i.imgur.com/RAXRooY.jpg)
-![](https://i.imgur.com/3VkDy82.jpg)
-![](https://i.imgur.com/JhK01qT.jpg)
-![](https://i.imgur.com/OCsoSBk.jpg)
-### 增肌
-![](https://i.imgur.com/OodsURE.jpg)
-![](https://i.imgur.com/95lZAGO.jpg)
-![](https://i.imgur.com/DOj8yEs.jpg)
-![](https://i.imgur.com/bgeHzOf.jpg)
-![](https://i.imgur.com/R2vy5FN.jpg)
-![](https://i.imgur.com/TfHJx3t.jpg)
-![](https://i.imgur.com/6ZEIZzI.jpg)
-![](https://i.imgur.com/2iNuLe8.jpg)
-### 減脂(生酮飲食)
-![](https://i.imgur.com/Aej3bXd.jpg)
-![](https://i.imgur.com/shzYGJD.jpg)
-![](https://i.imgur.com/nxUfsPP.jpg)
-![](https://i.imgur.com/pvibAF1.jpg)
-![](https://i.imgur.com/xqbqg5A.jpg)
-![](https://i.imgur.com/hsoAJeE.jpg)
-![](https://i.imgur.com/7KyAzOK.jpg)
-### 隨時畫FSM
-![](https://i.imgur.com/kk8b9aa.jpg)
-### 聊天機器人
-![](https://i.imgur.com/co5NtdJ.jpg)
-![](https://i.imgur.com/v0uG700.jpg)
-
-
+### 加入好友
+- 一開始加入好友需要先手動輸入主題
+![](https://github.com/LinChiaEn/Line-bot/blob/master/img/initial.jpg)
+### 按主題內容詢問個別項目
+- 輸入問題前面的數字代號，並得到回覆
+![](https://github.com/LinChiaEn/Line-bot/blob/master/img/ask.jpg)
+### 返回到主題按鈕選單
+- 輸入"返回"前面的數字代號，回到按鈕選單
+![](https://github.com/LinChiaEn/Line-bot/blob/master/img/retrun.jpg)
 ## FSM
 ![](https://github.com/LinChiaEn/Line-bot/blob/master/fsm.png)
 ### state說明
