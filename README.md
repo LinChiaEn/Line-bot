@@ -158,119 +158,29 @@ Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
 
 [Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python/tree/master/examples/flask-echo)
 
-# Line Fitness
+# NNChatBot
 
 ## 前言
-現在健身的人愈來愈多，大家也愈來愈注重飲食健康，再加上作者本身也有健身的習慣，因此想設計一個LineChatBot來幫助有健身習慣的人，藉由它可以更清楚每天應該怎麼吃、吃多少來讓健身的效果更好。
+在外讀書，媽媽常會透過line的方式關心我的生活，但其實有時候會因為忙碌忘記回復訊息，藉由這個聊天機器人，可以讓媽媽有和女兒聊天的感覺。
 
 ## 構想
-先藉由使用者輸入的性別、年齡、身高、體重、運動習慣等，幫助使用者算出BMR與TDEE。再藉由增肌、減脂兩個面向來幫助所需要的人，其中增肌有提供訓練各部位的推薦影片;減脂則是有現在主流的低醣飲食與生酮飲食來提供給大家參考。增肌、減脂都能查詢當天三大營養素應該各吃多少，也可以藉由衛生署提供的各食物營養素分析來給使用者查詢。
+先藉由使用者點選主題選項後，須入問題代號，再依據提問的問題回答。
 
 ## 環境
-- ubuntu 18.04
-- python 3.6.9
+- window 10
+- python 3.6
 
-## 技術
-- Olami
-    - 具有NLP的聊天機器人
-- Beautifulsoup4
-    - 爬取youtube各健身部位的推薦影片
-
-## 使用教學
-1. install `pipenv`
-```shell
-pip3 install pipenv
-```
-2. install 所需套件
-```shell
-pipenv install --three
-// 若遇到pygraphviz安裝失敗，則嘗試下面這行
-sudo apt-get install graphviz graphviz-dev
-```
-3. 從`.env.sample`產生出一個`.env`，並填入以下四個資訊
-
-- Line
-    - LINE_CHANNEL_SECRET
-    - LINE_CHANNEL_ACCESS_TOKEN
-- Olami
-    - APP_KEY
-    - APP_SECRET
-4. install `ngrok`
-
-```shell
-sudo snap install ngrok
-```
-5. run `ngrok` to deploy Line Chat Bot locally
-```shell
-ngrok http 8000
-```
-6. execute app.py
-```shell
-python3 app.py
-```
 
 ## 使用說明
 - 基本操作
-    - 所有用到英文的指令大小寫皆可
-    - 隨時輸入任何字若沒觸發到都會有提示
-    - 以下三個指令皆可隨時輸入
-        - `restart`
-            - reset所有資訊
-        - `chat`
-            - 切換到聊天機器人模式
-        - `fsm`
-            - 傳回當前的fsm圖片
+    - 點選按鈕
+    - 須入問題數字代號
+    - 輸入返回的數字代號，回到按鈕選單
 - 架構圖
-    1. 輸入`fitness`開始使用健身小幫手
-    2. 輸入性別 -> `男生`或`女生`
-    3. 輸入年齡 -> `整數`
-    4. 輸入身高 -> `整數`
-    5. 輸入體重 -> `整數`
-    6. 輸入一週運動的天數 -> `整數`
-    7. 以下分成`增肌`與`減脂`來加以說明
-- `增肌` 
-    - `熱量`
-        - 算出BMR與TDEE
-        - `食物`
-            - 可查看一天三大營養素需要吃多少
-            - 可回傳三大營養素所佔熱量比例的圓餅圖
-            - 可搜尋食物名稱來知道該食物的三大營養素
-        - `BMR`
-            - 文字說明何謂BMR
-        - `TDEE`
-            - 文字說明何謂TDEE
-    - `影片`
-        - 會推薦youtube上的健身影片
-        - 可根據想練的部位來加以訓練
-            - 胸
-            - 背
-            - 腿
-            - 肩 (未顯示在Button上）
-            - 二頭 (未顯示在Button上）
-            - 三頭 (未顯示在Button上）
-- `減脂`
-    - `低醣飲食`
-        - `熱量`
-            - 算出BMR與TDEE
-            - `食物`
-                - 可查看一天三大營養素需要吃多少
-                - 可回傳三大營養素所佔熱量比例的圓餅圖
-                - 可搜尋食物名稱來知道該食物的三大營養素
-            - `BMR`
-                - 文字說明何謂BMR
-            - `TDEE`
-                - 文字說明何謂TDEE
-    - `生酮飲食`
-        - `熱量`
-            - 算出BMR與TDEE
-            - `食物`
-                - 可查看一天三大營養素需要吃多少
-                - 可回傳三大營養素所佔熱量比例的圓餅圖
-                - 可搜尋食物名稱來知道該食物的三大營養素
-            - `BMR`
-                - 文字說明何謂BMR
-            - `TDEE`
-                - 文字說明何謂TDEE
+    1. 點選按鈕進入主題
+    2. 輸入問題的數字代號
+    3. 回覆問題
+    4. 輸入返回數字代號
 
 ## 使用示範
 ### 輸入個人資訊
